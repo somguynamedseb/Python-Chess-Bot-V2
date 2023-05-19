@@ -19,6 +19,8 @@ class piece(ABC):
         pass
     def upgrade(self):
         pass
+    def self_ID(self):
+        pass
 class pawn(piece):
     def check_check(self):
         pass
@@ -29,6 +31,8 @@ class pawn(piece):
     def take(self):
         pass
     def upgrade(self):
+        pass
+    def self_ID(self):
         pass
 class rook(piece):
     def check_check(self):
@@ -41,6 +45,8 @@ class rook(piece):
         pass
     def upgrade(self):
         pass
+    def self_ID(self):
+        pass
 class knight(piece):
     def check_check(self):
         pass
@@ -51,6 +57,8 @@ class knight(piece):
     def take(self):
         pass
     def upgrade(self):
+        pass
+    def self_ID(self):
         pass
 class king(piece):
     def check_check(self):
@@ -63,6 +71,8 @@ class king(piece):
         pass
     def upgrade(self):
         pass
+    def self_ID(self):
+        pass
 class queen(piece):
     def check_check(self):
         pass
@@ -73,6 +83,8 @@ class queen(piece):
     def take(self):
         pass
     def upgrade(self):
+        pass
+    def self_ID(self):
         pass
 class bishop(piece):
     def check_check(self):
@@ -85,6 +97,8 @@ class bishop(piece):
         pass
     def upgrade(self):
         pass
+    def self_ID(self):
+        pass
 class space:
     def __init__(self,location:str,piece:piece):
         self.location = location
@@ -95,8 +109,8 @@ def board_init():
     letters = ['a','b','c','d','e','f','g','h']
     for x in range (0,8):
         for y in range (0,8):
-            board[x][y]= space((letters[x]) +str(y),None)
-            print (str(x) + " " + str(y))
+            board[x][y]= space((letters[x]) +str(y+1),None)
+            print (str(x) + " " + str(y+1))
             print(board[x][y].location)
 board_init()
 def piece_init():
@@ -121,6 +135,23 @@ def piece_init():
             print(board[x][y].location)
             print(board[x][y].piece)
 
-def board_print():
+def space_check(spot:space)-> str:
+    if spot.piece != None:
+        if isinstance(spot.piece,pawn): return str("P"+spot.piece.color[0:1])
+        if isinstance(spot.piece,knight): return str("N"+spot.piece.color[0:1])
+        if isinstance(spot.piece,bishop): return str("B"+spot.piece.color[0:1])
+        if isinstance(spot.piece,rook): return str("R"+spot.piece.color[0:1])
+        if isinstance(spot.piece,queen): return str("Q"+spot.piece.color[0:1])
+        if isinstance(spot.piece,king): return str("K"+spot.piece.color[0:1])
+    else: return spot.location
+    
+def board_print() :
     print("______________________")
+    for x in range (0,8):
+        rowlist = []
+        for y in range(0,8):
+            rowlist.append(space_check(board[x][y]))
+            rowlist.append("")
+        print(rowlist)
+    print("______________")
     
