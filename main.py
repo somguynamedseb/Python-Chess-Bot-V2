@@ -159,14 +159,14 @@ def board_print() :
     
     
 def location_finder(location:str)->space:
-    letters = ['h','g','f','e','d','c','b','a']
+    letters = ['a','b','c','d','e','f','g','h']
     letter = ""
     num=""
     for x in range (0,8):
         if location[0] == letters[x]:
             letter = x
-    num = location[1]
-    print(letters[letter]+num)
+    num = 8- int(location[1])
+    # print(letters[letter]+num)
     return board[int(num)][int(letter)]
 
 
