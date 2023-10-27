@@ -8,10 +8,11 @@ class piece(ABC):
         self.life = life
         self.potential_moves = potential_moves
         self.color:str = color
+        self.move_list = []
     @abstractmethod
     def check_check(self):
         pass
-    def check_moves(self):
+    def check_moves(self)-> bool:
         pass
     def move(self):
         pass
@@ -21,12 +22,19 @@ class piece(ABC):
         pass
     def self_ID(self):
         pass
+    
+class space:
+    def __init__(self,location:str,piece:piece):
+        self.location = location
+        self.piece = piece
+board:space = [ [0 for i in range(8)] for j in range(8) ] 
 class pawn(piece):
+
     def check_check(self):
         pass
-    def check_moves(self):
+    def check_moves(self)-> bool:
         pass
-    def move(self):
+    def move(self,move_to:space):
         pass
     def take(self):
         pass
@@ -37,10 +45,19 @@ class pawn(piece):
 class rook(piece):
     def check_check(self):
         pass
-    def check_moves(self):
-        pass
-    def move(self):
-        pass
+    def check_moves(self)-> bool:
+        temp_list = []
+        for x in range (0,8):
+            if (location_finder(self.space[0]+str(x+1)).piece== None): temp_list.append(location_finder(self.space[0]+str(x+1)).location)
+            elif (location_finder(self.space[0]+str(x+1)).piece.color!=self.color):temp_list.append(location_finder(self.space[0]+str(x+1)).location)
+            letters = ['a','b','c','d','e','f','g','h']    
+            if (location_finder(letters[x]+self.space[1]).piece== None): temp_list.append(location_finder(letters[x]+self.space[1]).location)
+            elif (location_finder((letters[x]+self.space[1])).piece.color!=self.color): temp_list.append(location_finder(letters[x]+self.space[1]).location)
+        print(temp_list)
+         
+        return False
+    def move(self,move_to:space):
+        self.check_moves
     def take(self):
         pass
     def upgrade(self):
@@ -50,9 +67,9 @@ class rook(piece):
 class knight(piece):
     def check_check(self):
         pass
-    def check_moves(self):
+    def check_moves(self)-> bool:
         pass
-    def move(self):
+    def move(self,move_to:space):
         pass
     def take(self):
         pass
@@ -63,9 +80,9 @@ class knight(piece):
 class king(piece):
     def check_check(self):
         pass
-    def check_moves(self):
+    def check_moves(self)-> bool:
         pass
-    def move(self):
+    def move(self,move_to:space):
         pass
     def take(self):
         pass
@@ -76,9 +93,9 @@ class king(piece):
 class queen(piece):
     def check_check(self):
         pass
-    def check_moves(self):
+    def check_moves(self)-> bool:
         pass
-    def move(self):
+    def move(self,move_to:space):
         pass
     def take(self):
         pass
@@ -89,9 +106,9 @@ class queen(piece):
 class bishop(piece):
     def check_check(self):
         pass
-    def check_moves(self):
+    def check_moves(self)-> bool:
         pass
-    def move(self):
+    def move(self,move_to:space):
         pass
     def take(self):
         pass
@@ -99,11 +116,7 @@ class bishop(piece):
         pass
     def self_ID(self):
         pass
-class space:
-    def __init__(self,location:str,piece:piece):
-        self.location = location
-        self.piece = piece
-board:space = [ [0 for i in range(8)] for j in range(8) ] 
+
 
 def board_init():
     letters = ['a','b','c','d','e','f','g','h']
@@ -187,11 +200,9 @@ def input_processing(input:str):
                 break
         
         
+        
 def game_controller():
     input_processing(input("what do you want to do?"))
-
-def check_check():
-    pass
 
 
 def initalize():
